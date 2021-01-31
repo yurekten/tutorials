@@ -1,0 +1,189 @@
+{
+  "target": "bmv2",
+  "p4info": "build/sfc.p4.p4info.txt",
+  "bmv2_json": "build/sfc.json",
+  "table_entries": [
+    {
+      "table": "IngressPipe.ingress_downstream.ipv4_lpm",
+      "match": {
+        "hdr.ipv4.dstAddr": ["10.0.1.1", 32]
+      },
+      "action_name": "IngressPipe.ingress_downstream.ipv4_forward",
+      "action_params": {
+        "dstAddr": "08:00:00:00:01:00",
+        "port": 3
+      }
+    },
+    {
+      "table": "IngressPipe.ingress_downstream.ipv4_lpm",
+      "match": {
+        "hdr.ipv4.dstAddr": ["10.0.2.2", 32]
+      },
+      "action_name": "IngressPipe.ingress_downstream.ipv4_forward",
+      "action_params": {
+        "dstAddr": "08:00:00:00:02:22",
+        "port": 4
+      }
+    },
+    {
+      "table": "IngressPipe.ingress_downstream.ipv4_lpm",
+      "match": {
+        "hdr.ipv4.dstAddr": ["10.0.3.3", 32]
+      },
+      "action_name": "IngressPipe.ingress_downstream.ipv4_forward",
+      "action_params": {
+        "dstAddr": "08:00:00:00:03:00",
+        "port": 2
+      }
+    },
+    {
+      "table": "IngressPipe.ingress_downstream.ipv4_lpm",
+      "match": {
+        "hdr.ipv4.dstAddr": ["10.0.4.4", 32]
+      },
+      "action_name": "IngressPipe.ingress_downstream.ipv4_forward",
+      "action_params": {
+        "dstAddr": "08:00:00:00:04:00",
+        "port": 1
+      }
+    },
+    {
+      "table": "IngressPipe.in_classifier.t_sfc_dst_classifier",
+      "match": {
+        "hdr.ipv4.dstAddr": ["10.0.1.1", 32]
+      },
+      "action_name": "IngressPipe.in_classifier.sfc_encap",
+      "action_params": {
+        "spi": 31,
+        "si": 255,
+        "ch1": 101,
+        "ch2": 102,
+        "ch3": 103,
+        "ch4": 104
+      }
+    },
+    {
+      "table": "IngressPipe.in_classifier.t_sfc_dst_classifier",
+      "match": {
+        "hdr.ipv4.dstAddr": ["10.0.1.2", 32]
+      },
+      "action_name": "IngressPipe.in_classifier.sfc_encap",
+      "action_params": {
+        "spi": 21,
+        "si": 255,
+        "ch1": 101,
+        "ch2": 102,
+        "ch3": 103,
+        "ch4": 104
+      }
+    },
+    {
+      "table": "IngressPipe.ingress_upstream.t_nsh_lookup",
+      "match": {
+        "meta.updated_nsh.spi": [32],
+        "meta.updated_nsh.si": [255]
+      },
+      "action_name": "IngressPipe.ingress_upstream.sfc_forward",
+      "action_params": {
+        "port": 2
+      }
+    },
+    {
+      "table": "IngressPipe.ingress_upstream.t_nsh_lookup",
+      "match": {
+        "meta.updated_nsh.spi": [32],
+        "meta.updated_nsh.si": [254]
+      },
+      "action_name": "IngressPipe.ingress_upstream.sfc_forward",
+      "action_params": {
+        "port": 1
+      }
+    },
+    {
+      "table": "IngressPipe.ingress_upstream.t_nsh_lookup",
+      "match": {
+        "meta.updated_nsh.spi": [32],
+        "meta.updated_nsh.si": [253]
+      },
+      "action_name": "IngressPipe.ingress_upstream.sfc_decap",
+      "action_params": {
+      }
+    },
+    {
+      "table": "IngressPipe.ingress_upstream.t_nsh_lookup",
+      "match": {
+        "meta.updated_nsh.spi": [31],
+        "meta.updated_nsh.si": [255]
+      },
+      "action_name": "IngressPipe.ingress_upstream.sfc_forward",
+      "action_params": {
+        "port": 1
+      }
+    },
+    {
+      "table": "IngressPipe.ingress_upstream.t_nsh_lookup",
+      "match": {
+        "meta.updated_nsh.spi": [31],
+        "meta.updated_nsh.si": [254]
+      },
+      "action_name": "IngressPipe.ingress_upstream.sfc_forward",
+      "action_params": {
+        "port": 2
+      }
+    },
+    {
+      "table": "IngressPipe.ingress_upstream.t_nsh_lookup",
+      "match": {
+        "meta.updated_nsh.spi": [31],
+        "meta.updated_nsh.si": [253]
+      },
+      "action_name": "IngressPipe.ingress_upstream.sfc_forward",
+      "action_params": {
+        "port": 3
+      }
+    },
+    {
+      "table": "IngressPipe.ingress_upstream.t_nsh_lookup",
+      "match": {
+        "meta.updated_nsh.spi": [22],
+        "meta.updated_nsh.si": [255]
+      },
+      "action_name": "IngressPipe.ingress_upstream.sfc_forward",
+      "action_params": {
+        "port": 1
+      }
+    },
+    {
+      "table": "IngressPipe.ingress_upstream.t_nsh_lookup",
+      "match": {
+        "meta.updated_nsh.spi": [22],
+        "meta.updated_nsh.si": [254]
+      },
+      "action_name": "IngressPipe.ingress_upstream.sfc_decap",
+      "action_params": {
+      }
+    },
+    {
+      "table": "IngressPipe.ingress_upstream.t_nsh_lookup",
+      "match": {
+        "meta.updated_nsh.spi": [21],
+        "meta.updated_nsh.si": [255]
+      },
+      "action_name": "IngressPipe.ingress_upstream.sfc_forward",
+      "action_params": {
+        "port": 1
+      }
+    },
+    {
+      "table": "IngressPipe.ingress_upstream.t_nsh_lookup",
+      "match": {
+        "meta.updated_nsh.spi": [21],
+        "meta.updated_nsh.si": [254]
+      },
+      "action_name": "IngressPipe.ingress_upstream.sfc_forward",
+      "action_params": {
+        "port": 3
+      }
+    }
+  ]
+}

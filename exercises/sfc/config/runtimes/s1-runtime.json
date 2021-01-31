@@ -1,0 +1,192 @@
+{
+  "target": "bmv2",
+  "p4info": "build/sfc.p4.p4info.txt",
+  "bmv2_json": "build/sfc.json",
+  "table_entries": [
+
+    {
+      "table": "IngressPipe.ingress_downstream.ipv4_lpm",
+      "match": {
+        "hdr.ipv4.dstAddr": ["10.0.1.1", 32]
+      },
+      "action_name": "IngressPipe.ingress_downstream.ipv4_forward",
+      "action_params": {
+        "dstAddr": "08:00:00:00:01:11",
+        "port": 4
+      }
+    },
+    {
+      "table": "IngressPipe.ingress_downstream.ipv4_lpm",
+      "match": {
+        "hdr.ipv4.dstAddr": ["10.0.2.2", 32]
+      },
+      "action_name": "IngressPipe.ingress_downstream.ipv4_forward",
+      "action_params": {
+        "dstAddr": "08:00:00:00:02:00",
+        "port": 3
+      }
+    },
+    {
+      "table": "IngressPipe.ingress_downstream.ipv4_lpm",
+      "match": {
+        "hdr.ipv4.dstAddr": ["10.0.3.3", 32]
+      },
+      "action_name": "IngressPipe.ingress_downstream.ipv4_forward",
+      "action_params": {
+        "dstAddr": "08:00:00:00:03:00",
+        "port": 1
+      }
+    },
+    {
+      "table": "IngressPipe.ingress_downstream.ipv4_lpm",
+      "match": {
+        "hdr.ipv4.dstAddr": ["10.0.4.4", 32]
+      },
+      "action_name": "IngressPipe.ingress_downstream.ipv4_forward",
+      "action_params": {
+        "dstAddr": "08:00:00:00:04:00",
+        "port": 2
+      }
+    },
+    {
+      "table": "IngressPipe.in_classifier.t_sfc_dst_classifier",
+      "match": {
+        "hdr.ipv4.dstAddr": ["10.0.2.2", 32]
+      },
+      "action_name": "IngressPipe.in_classifier.sfc_encap",
+      "action_params": {
+        "spi": 32,
+        "si": 255,
+        "ch1": 101,
+        "ch2": 102,
+        "ch3": 103,
+        "ch4": 104
+      }
+    },
+    {
+      "table": "IngressPipe.in_classifier.t_sfc_dst_classifier",
+      "match": {
+        "hdr.ipv4.dstAddr": ["10.0.2.3", 32]
+      },
+      "action_name": "IngressPipe.in_classifier.sfc_encap",
+      "action_params": {
+        "spi": 22,
+        "si": 255,
+        "ch1": 101,
+        "ch2": 102,
+        "ch3": 103,
+        "ch4": 104
+      }
+    },
+    {
+      "table": "IngressPipe.sfc_forwarder",
+      "match": {
+        "hdr.nsh.spi": [32],
+        "hdr.nsh.si": [255]
+      },
+      "action_name": "IngressPipe.sfc_forward",
+      "action_params": {
+        "port": 3
+      }
+    },
+    {
+      "table": "IngressPipe.sfc_forwarder",
+      "match": {
+        "hdr.nsh.spi": [32],
+        "hdr.nsh.si": [254]
+      },
+      "action_name": "IngressPipe.sfc_forward",
+      "action_params": {
+        "port": 2
+      }
+    },
+    {
+      "table": "IngressPipe.sfc_forwarder",
+      "match": {
+        "hdr.nsh.spi": [32],
+        "hdr.nsh.si": [253]
+      },
+      "action_name": "IngressPipe.sfc_forward",
+      "action_params": {
+        "port": 1
+      }
+    },
+    {
+      "table": "IngressPipe.sfc_forwarder",
+      "match": {
+        "hdr.nsh.spi": [31],
+        "hdr.nsh.si": [255]
+      },
+      "action_name": "IngressPipe.sfc_forward",
+      "action_params": {
+        "port": 2
+      }
+    },
+    {
+      "table": "IngressPipe.sfc_forwarder",
+      "match": {
+        "hdr.nsh.spi": [31],
+        "hdr.nsh.si": [254]
+      },
+      "action_name": "IngressPipe.sfc_forward",
+      "action_params": {
+        "port": 3
+      }
+    },
+    {
+      "table": "IngressPipe.sfc_forwarder",
+      "match": {
+        "hdr.nsh.spi": [31],
+        "hdr.nsh.si": [253]
+      },
+      "action_name": "IngressPipe.sfc_decap",
+      "action_params": {
+        "port": 4
+      }
+    },
+    {
+      "table": "IngressPipe.sfc_forwarder",
+      "match": {
+        "hdr.nsh.spi": [22],
+        "hdr.nsh.si": [255]
+      },
+      "action_name": "IngressPipe.sfc_forward",
+      "action_params": {
+        "port": 2
+      }
+    },
+    {
+      "table": "IngressPipe.sfc_forwarder",
+      "match": {
+        "hdr.nsh.spi": [22],
+        "hdr.nsh.si": [254]
+      },
+      "action_name": "IngressPipe.sfc_forward",
+      "action_params": {
+        "port": 1
+      }
+    },
+    {
+      "table": "IngressPipe.sfc_forwarder",
+      "match": {
+        "hdr.nsh.spi": [21],
+        "hdr.nsh.si": [255]
+      },
+      "action_name": "IngressPipe.sfc_forward",
+      "action_params": {
+        "port": 2
+      }
+    },
+    {
+      "table": "IngressPipe.sfc_forwarder",
+      "match": {
+        "hdr.nsh.spi": [21],
+        "hdr.nsh.si": [254]
+      },
+      "action_name": "IngressPipe.sfc_decap",
+      "action_params": {
+        "port": 4
+      }
+    }
+  ]
+}
