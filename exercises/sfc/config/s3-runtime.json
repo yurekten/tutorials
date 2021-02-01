@@ -53,8 +53,9 @@
         "meta.updated_nsh.spi": [32],
         "meta.updated_nsh.si": [255]
       },
-      "action_name": "IngressPipe.ingress_upstream.sfc_decap",
+      "action_name": "IngressPipe.ingress_upstream.set_nf_instance_id",
       "action_params": {
+        "nf_instance_id": 1
       }
     },
     {

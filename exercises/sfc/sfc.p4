@@ -75,7 +75,7 @@ control IngressPipe(inout headers hdr,
 
         hdr.nsh = meta.updated_nsh;
         if(hdr.nsh.isValid())
-            log_msg("NSH header is valid and spi {}", {hdr.nsh.spi});
+            log_msg("NSH header is valid and spi {} etherType {}", {hdr.nsh.spi, hdr.ethernet.etherType});
         else
 
             log_msg("NSH header is not valid!!!");

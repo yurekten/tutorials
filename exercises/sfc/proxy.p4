@@ -14,6 +14,7 @@ control SfcProxyEncapPipe(inout headers hdr,
 
     action sfc_encap(bit<24> spi, bit<8> si, bit<32> ch1, bit<32> ch2, bit<32> ch3, bit<32> ch4) {
         meta.encap_proxy_match = true;
+        hdr.ethernet.etherType = TYPE_NSH;
         meta.updated_nsh.setValid();
         //hdr.updated_nsh.version = 0;
         //hdr.updated_nsh.oam = 0;
