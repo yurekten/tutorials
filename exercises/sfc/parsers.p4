@@ -25,7 +25,7 @@ parser ParserImplementation(packet_in packet,
         packet.extract(hdr.nsh);
         transition select(hdr.nsh.nextProtocol) {
             TYPE_NSH_IPV4: parse_ipv4;
-            TYPE_NSH_ETHERNET: parse_ethernet;
+            //TYPE_NSH_ETHERNET: parse_ethernet;
             default: accept;
         }
     }

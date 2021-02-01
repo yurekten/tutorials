@@ -9,7 +9,9 @@ control ChecksumCalculationPipe(inout headers hdr, inout custom_metadata_t meta)
                 BASE_INDEX,
                 { hdr.ipv4.dstAddr,
                   hdr.ipv4.srcAddr,
-                  hdr.ipv4.protocol
+                  hdr.ipv4.protocol,
+                  hdr.icmp.type,
+                  hdr.icmp.code
                 },
                 MAX_INDEX);
     }

@@ -87,7 +87,6 @@ header nsh_t {
     bit<32> ch4;
 }
 
-
 header icmp_t {
     bit<8> type;
     bit<8> code;
@@ -118,7 +117,6 @@ struct custom_metadata_t {
     egressSpec_t    to_nf_instance_port;
     egressSpec_t    from_nf_instance_port;
     ip4Addr_t       nextnf_instance_ip;
-
 }
 
 struct headers {

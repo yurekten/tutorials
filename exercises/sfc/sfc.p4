@@ -43,9 +43,11 @@ control IngressPipe(inout headers hdr,
     ChecksumCalculationPipe() checksum_calc;
 
     apply {
-
         if(!hdr.ipv4.isValid()) {
             return;
+        }
+        if(standard_metadata.instance_type == 4) {
+            log_msg("Packet recirculated and spi {} si {}", {hdr.nsh.spi, hdr.nsh.si});
         }
         checksum_calc.apply(hdr, meta);
 
@@ -73,12 +75,7 @@ control IngressPipe(inout headers hdr,
             ingress_downstream.apply(hdr, meta, standard_metadata);
         }
 
-        hdr.nsh = meta.updated_nsh;
-        if(hdr.nsh.isValid())
-            log_msg("NSH header is valid and spi {} etherType {}", {hdr.nsh.spi, hdr.ethernet.etherType});
-        else
 
-            log_msg("NSH header is not valid!!!");
     }
 }
 
@@ -90,8 +87,20 @@ control IngressPipe(inout headers hdr,
 control EgressPipe(inout headers hdr,
                  inout custom_metadata_t meta,
                  inout standard_metadata_t standard_metadata) {
+    action recirculate_packet() {
+        // Send again the packet through both pipelines
+        hdr.nsh.si = hdr.nsh.si - 1;
+        recirculate({});
+    }
 
     apply {
+
+        hdr.nsh = meta.updated_nsh;
+        if(meta.forward_to_nf) {
+            recirculate_packet();
+        }
+        if(hdr.nsh.isValid())
+            log_msg("NSH header is valid and spi {} si {}", {hdr.nsh.spi, hdr.nsh.si});
 
     }
 }
@@ -129,6 +138,9 @@ control DeparserPipe(packet_out packet, in headers hdr) {
         packet.emit(hdr.ethernet);
         packet.emit(hdr.nsh);
         packet.emit(hdr.ipv4);
+        packet.emit(hdr.tcp);
+        packet.emit(hdr.udp);
+        packet.emit(hdr.icmp);
     }
 }
 

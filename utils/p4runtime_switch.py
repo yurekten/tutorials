@@ -89,6 +89,11 @@ class P4RuntimeSwitch(P4Switch):
         self.nanomsg = "ipc:///tmp/bm-{}-log.ipc".format(self.device_id)
 
 
+        # disable IPv6
+        self.cmd("sysctl -w net.ipv6.conf.all.disable_ipv6=1")
+        self.cmd("sysctl -w net.ipv6.conf.default.disable_ipv6=1")
+        self.cmd("sysctl -w net.ipv6.conf.lo.disable_ipv6=1")
+
     def check_switch_started(self, pid):
         for _ in range(SWITCH_START_TIMEOUT * 2):
             if not os.path.exists(os.path.join("/proc", str(pid))):

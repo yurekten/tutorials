@@ -2,7 +2,7 @@
 import os
 import sys
 from scapy.all import sniff, get_if_list
-from scapy.layers.inet import TCP
+from scapy.layers.inet import TCP, UDP, IP
 
 from nsh_header import NSH
 
@@ -21,7 +21,7 @@ def get_if():
 
 
 def handle_pkt(pkt):
-    if NSH in pkt or (TCP in pkt and pkt[TCP].dport == 1234):
+    if NSH in pkt or (IP in pkt):
         print("got a packet")
         pkt.show2()
         #        hexdump(pkt)
