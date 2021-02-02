@@ -14,7 +14,7 @@ control IngressUpstreamPipe(inout headers hdr,
 
     action sfc_forward(egressSpec_t port) {
          standard_metadata.egress_spec = port;
-         hdr.nsh.ttl = hdr.nsh.ttl - 1;
+         meta.updated_nsh.ttl = meta.updated_nsh.ttl - 1;
     }
 
     action sfc_decap() {
@@ -54,12 +54,13 @@ control IngressUpstreamPipe(inout headers hdr,
 
     action set_sfc_aware_nf(ip4Addr_t ip, macAddr_t mac, egressSpec_t port, ip4Addr_t next_nf_ip) {
             meta.sfc_aware_nf = true;
-            set_nf_instance(ip, mac, port, 0, next_nf_ip);
+            set_nf_instance(ip, mac, port, port, next_nf_ip);
     }
     action set_sfc_unaware_nf(ip4Addr_t ip, macAddr_t mac, egressSpec_t to_port, egressSpec_t from_port, ip4Addr_t next_nf_ip) {
             meta.sfc_aware_nf = false;
             set_nf_instance(ip, mac, to_port, from_port, next_nf_ip);
     }
+
     table t_connected_nf {
         key = {
             meta.nf_instance_id: exact;
@@ -85,7 +86,8 @@ control IngressUpstreamPipe(inout headers hdr,
                     standard_metadata.egress_spec = meta.to_nf_instance_port;
                     hdr.ethernet.srcAddr = hdr.ethernet.dstAddr;
                     hdr.ethernet.dstAddr = meta.nf_instance_mac;
-                    hdr.nsh.ttl = hdr.nsh.ttl - 1;
+
+                    meta.updated_nsh.ttl = meta.updated_nsh.ttl - 1;
                 } else {
                     //V1MODEL_METER_COLOR_YELLOW: no ops
                     //V1MODEL_METER_COLOR_RED
