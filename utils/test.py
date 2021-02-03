@@ -14,16 +14,20 @@ if __name__ == '__main__':
     build_dir = "build"
     log_dir = "logs"
     pcap_dir = "pcaps"
-    file_name_base = "sfc"
+    file_name_base = "router"
     file_name = file_name_base + ".p4"
     runtime_file_name = build_dir + "/" + file_name + ".p4info.txt"
     switch_json = "build/"+ file_name_base +".json"
     subprocess.call(["rm", "-rf", log_dir, pcap_dir, build_dir])
     subprocess.call(["mkdir", "-p", log_dir, pcap_dir, build_dir])
     subprocess.call(["p4c-bm2-ss", "--p4v", "16", "--p4runtime-files", runtime_file_name, "-o", switch_json, file_name])
+    subprocess.call(["chown", "-R", "p4:p4", log_dir])
+    subprocess.call(["chown", "-R", "p4:p4", pcap_dir])
+    subprocess.call(["chown", "-R", "p4:p4", build_dir])
 
 
-    #args = get_args()
+
+#args = get_args()
     exercise = ExerciseRunner(topo, log_dir, pcap_dir,
                               switch_json, behavioral_exe, quiet)
 

@@ -1,0 +1,132 @@
+{
+  "target": "bmv2",
+  "p4info": "build/router.p4.p4info.txt",
+  "bmv2_json": "build/router.json",
+  "table_entries": [
+    {
+      "table": "RouterEgress.port_mac_table",
+      "match": {
+        "standard_metadata.egress_port": 1
+      },
+      "action_name": "RouterEgress.set_port_mac",
+      "action_params": {
+        "mac": "0A:0B:0C:0D:30:03"
+      }
+    },
+    {
+      "table": "RouterEgress.port_mac_table",
+      "match": {
+        "standard_metadata.egress_port": 2
+      },
+      "action_name": "RouterEgress.set_port_mac",
+      "action_params": {
+        "mac": "0A:0B:0C:0D:60:03"
+      }
+    },
+    {
+      "table": "RouterEgress.port_mac_table",
+      "match": {
+        "standard_metadata.egress_port": 3
+      },
+      "action_name": "RouterEgress.set_port_mac",
+      "action_params": {
+        "mac": "0A:0B:0C:0D:50:03"
+      }
+    },
+    {
+      "table": "RouterEgress.port_mac_table",
+      "match": {
+        "standard_metadata.egress_port": 4
+      },
+      "action_name": "RouterEgress.set_port_mac",
+      "action_params": {
+        "mac": "0A:0B:0C:0D:03:01"
+      }
+    },
+
+    {
+      "table": "RouterEgress.switching_table",
+      "match": {
+        "meta.routing.nhop_ipv4": "10.0.30.1"
+      },
+      "action_name": "RouterEgress.set_dst_mac",
+      "action_params": {
+        "dst_mac": "0A:0B:0C:0D:30:01"
+      }
+    },
+    {
+      "table": "RouterEgress.switching_table",
+      "match": {
+        "meta.routing.nhop_ipv4": "10.0.60.2"
+      },
+      "action_name": "RouterEgress.set_dst_mac",
+      "action_params": {
+        "dst_mac": "0A:0B:0C:0D:60:02"
+      }
+    },
+    {
+      "table": "RouterEgress.switching_table",
+      "match": {
+        "meta.routing.nhop_ipv4": "10.0.50.4"
+      },
+      "action_name": "RouterEgress.set_dst_mac",
+      "action_params": {
+        "dst_mac": "0A:0B:0C:0D:50:04"
+      }
+    },
+    {
+      "table": "RouterEgress.switching_table",
+      "match": {
+        "meta.routing.nhop_ipv4": "10.0.3.10"
+      },
+      "action_name": "RouterEgress.set_dst_mac",
+      "action_params": {
+        "dst_mac": "0A:0B:0C:0D:03:10"
+      }
+    },
+    {
+      "table": "RouterIngress.routing_table",
+      "match": {
+        "hdr.ipv4.dstAddr": ["10.0.1.0", 24]
+      },
+      "action_name": "RouterIngress.ipv4_forward",
+      "action_params": {
+        "nextHopIP": "10.0.30.1",
+        "port": 1
+      }
+    },
+    {
+      "table": "RouterIngress.routing_table",
+      "match": {
+        "hdr.ipv4.dstAddr": ["10.0.2.0", 24]
+      },
+      "action_name": "RouterIngress.ipv4_forward",
+      "action_params": {
+        "nextHopIP": "10.0.60.2",
+        "port": 2
+      }
+    },
+    {
+      "table": "RouterIngress.routing_table",
+      "match": {
+        "hdr.ipv4.dstAddr": ["10.0.3.0", 24]
+      },
+      "action_name": "RouterIngress.ipv4_forward",
+      "action_params": {
+        "nextHopIP": "10.0.3.10",
+        "port": 4
+      }
+    },
+    {
+      "table": "RouterIngress.routing_table",
+      "match": {
+        "hdr.ipv4.dstAddr": ["10.0.4.0", 24]
+      },
+      "action_name": "RouterIngress.ipv4_forward",
+      "action_params": {
+        "nextHopIP": "10.0.50.4",
+        "port": 3
+      }
+    }
+  ]
+}

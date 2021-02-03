@@ -35,7 +35,7 @@ control IngressUpstreamPipe(inout headers hdr,
             set_nf_instance_id;
             sfc_forward;
             sfc_decap;
-            drop;
+            @defaultonly drop;
         }
         size = 4096;
         default_action = drop();
