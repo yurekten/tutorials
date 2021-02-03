@@ -5,7 +5,7 @@
 #include <v1model.p4>
 
 control RouterEgress(inout headers hdr,
-               inout metadata meta,
+               inout custom_metadata_t meta,
                inout standard_metadata_t standard_metadata) {
 
     action drop() {

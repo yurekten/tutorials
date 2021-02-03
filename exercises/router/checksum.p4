@@ -4,11 +4,11 @@
 #include <core.p4>
 #include <v1model.p4>
 
-control VerifyChecksumImpl(inout headers hdr, inout metadata meta) {
+control VerifyChecksumImpl(inout headers hdr, inout custom_metadata_t meta) {
     apply {  }
 }
 
-control ComputeChecksumImpl(inout headers hdr, inout metadata meta) {
+control ComputeChecksumImpl(inout headers hdr, inout custom_metadata_t meta) {
      apply {
 	update_checksum(
 	    hdr.ipv4.isValid(),
